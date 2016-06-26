@@ -71,15 +71,23 @@ keys = [
         [mod, "shift"], "Return",
         lazy.layout.toggle_split()
     ),
-    Key([mod], "Return", lazy.spawn("xterm -rv -fa 'Monospace' -fs 14")),
+    Key([mod], "Return", lazy.spawn("xterm -rv -fs 14")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "q", lazy.window.kill()),
 
-    Key([mod, "shift"], "r", lazy.restart()),
-    Key([mod, "shift"], "q", lazy.shutdown()),
+    Key([mod, "control"], "r", lazy.restart()),
+    Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "w", lazy.spawncmd()),
+
+    # Function keys
+    Key([mod],'XF86MonBrightnessUp', lazy.spawn("xbacklight -inc 5")),
+    Key([mod],'XF86MonBrightnessDown', lazy.spawn("xbacklight -dec 5")),
+    Key([mod],'XF86AudioRaiseVolume', lazy.spawn("pamixer -i 5")),
+    Key([mod],'XF86AudioLowerVolume', lazy.spawn("pamixer -d 5")),
+    Key([mod],'XF86AudioMute', lazy.spawn("pamixer -m")),
+    Key([mod, 'control'],'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -108,7 +116,7 @@ widget_defaults = dict(
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.GroupBox(),
                 widget.Prompt(),
