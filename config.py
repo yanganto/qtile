@@ -71,15 +71,15 @@ keys = [
         [mod, "shift"], "Return",
         lazy.layout.toggle_split()
     ),
-    Key([mod], "Return", lazy.spawn("xterm")),
+    Key([mod], "Return", lazy.spawn("xterm -rv -fa 'Monospace' -fs 14")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
-    Key([mod], "w", lazy.window.kill()),
+    Key([mod], "q", lazy.window.kill()),
 
-    Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "r", lazy.spawncmd()),
+    Key([mod, "shift"], "r", lazy.restart()),
+    Key([mod, "shift"], "q", lazy.shutdown()),
+    Key([mod], "w", lazy.spawncmd()),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
@@ -113,9 +113,9 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.TextBox("default config", name="default"),
+                widget.TextBox("Yanganto", name="default"),
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                widget.Clock(format='%b %d %a %I:%M %p'),
             ],
             30,
         ),
