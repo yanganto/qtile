@@ -50,13 +50,13 @@ keys = [
 
     # Switch window focus to other pane(s) of stack
     Key(
-        [mod], "space",
+        ['mod1'], "Tab",
         lazy.layout.next()
     ),
 
     # Swap panes of split stack
     Key(
-        [mod, "shift"], "space",
+        [mod], "Tab",
         lazy.layout.rotate()
     ),
 
@@ -68,24 +68,24 @@ keys = [
         [mod, "shift"], "Return",
         lazy.layout.toggle_split()
     ),
-    #Key([mod], "Return", lazy.spawn("xterm -rv -fs 14")),
-    Key([mod], "Return", lazy.spawn("konsole")),
+    Key(['control'], "Escape", lazy.spawn("xterm -rv -fs 14")),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout()),
-    Key([mod], "q", lazy.window.kill()),
+    Key([mod], "space", lazy.next_layout()),
+    Key(['mod1'], "q", lazy.window.kill()),
+    Key(['control'], "q", lazy.window.kill()),
 
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "w", lazy.spawncmd()),
+    Key(["control"], "space", lazy.spawncmd()),
 
     # Function keys
-    Key([mod],'XF86MonBrightnessUp', lazy.spawn("xbacklight -inc 5")),
-    Key([mod],'XF86MonBrightnessDown', lazy.spawn("xbacklight -dec 5")),
-    Key([mod],'XF86AudioRaiseVolume', lazy.spawn("pamixer -i 5")),
-    Key([mod],'XF86AudioLowerVolume', lazy.spawn("pamixer -d 5")),
-    Key([mod],'XF86AudioMute', lazy.spawn("pamixer -m")),
-    Key([mod, 'control'],'XF86AudioMute', lazy.spawn("pamixer -u")),
+    Key([mod], 'XF86MonBrightnessUp', lazy.spawn("xbacklight -inc 5")),
+    Key([mod], 'XF86MonBrightnessDown', lazy.spawn("xbacklight -dec 5")),
+    Key([mod], 'XF86AudioRaiseVolume', lazy.spawn("pamixer -i 5")),
+    Key([mod], 'XF86AudioLowerVolume', lazy.spawn("pamixer -d 5")),
+    Key([mod], 'XF86AudioMute', lazy.spawn("pamixer -m")),
+    Key([mod, 'control'], 'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
 
 groups = [Group(i) for i in "asdfuiop"]
