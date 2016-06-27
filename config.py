@@ -68,7 +68,7 @@ keys = [
         [mod, "shift"], "Return",
         lazy.layout.toggle_split()
     ),
-    Key(['control'], "Escape", lazy.spawn("xterm -rv -fs 14")),
+    Key(['control'], "Escape", lazy.spawn('xterm -rv -fs 14 -fa "FreeMono"')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
