@@ -68,7 +68,8 @@ keys = [
         [mod, "shift"], "Return",
         lazy.layout.toggle_split()
     ),
-    Key([mod], "Return", lazy.spawn("xterm -rv -fs 14")),
+    #Key([mod], "Return", lazy.spawn("xterm -rv -fs 14")),
+    Key([mod], "Return", lazy.spawn("konsole")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
