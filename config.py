@@ -88,17 +88,17 @@ keys = [
     Key([mod, 'control'], 'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+groups = [Group(i) for i in '1234']
 
 for i in groups:
     # mod1 + letter of group = switch to group
     keys.append(
-        Key([mod], i.name, lazy.group[i.name].toscreen())
+        Key(['control'], 'F' + i.name, lazy.group[i.name].toscreen())
     )
 
     # mod1 + shift + letter of group = switch to & move focused window to group
     keys.append(
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name))
+        Key([mod], 'F' + i.name, lazy.window.togroup(i.name))
     )
 
 layouts = [
