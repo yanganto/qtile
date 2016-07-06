@@ -80,12 +80,12 @@ keys = [
     Key(["control"], "space", lazy.spawncmd()),
 
     # Function keys
-    Key([mod], 'XF86MonBrightnessUp', lazy.spawn("xbacklight -inc 5")),
-    Key([mod], 'XF86MonBrightnessDown', lazy.spawn("xbacklight -dec 5")),
-    Key([mod], 'XF86AudioRaiseVolume', lazy.spawn("pamixer -i 5")),
-    Key([mod], 'XF86AudioLowerVolume', lazy.spawn("pamixer -d 5")),
-    Key([mod], 'XF86AudioMute', lazy.spawn("pamixer -m")),
-    Key([mod, 'control'], 'XF86AudioMute', lazy.spawn("pamixer -u")),
+    Key([], 'XF86MonBrightnessUp', lazy.spawn("xbacklight -inc 5")),
+    Key([], 'XF86MonBrightnessDown', lazy.spawn("xbacklight -dec 5")),
+    Key([], 'XF86AudioRaiseVolume', lazy.spawn("pamixer -i 5")),
+    Key([], 'XF86AudioLowerVolume', lazy.spawn("pamixer -d 5")),
+    Key([], 'XF86AudioMute', lazy.spawn("pamixer -m")),
+    Key([mod], 'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
 
 groups = [Group(i) for i in '1234']
@@ -121,15 +121,18 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.CPUGraph(graph_color='FF3300'),
-                widget.MemoryGraph(),
-                widget.Battery(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.BatteryIcon(),
+                widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M %p'),
             ],
             30,
+                background=['#000000', '#333333']
         ),
-    ),
+    )
 ]
 
 # Drag floating layouts.
