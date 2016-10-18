@@ -26,7 +26,7 @@
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget
+from libqtile import layout, bar, widget, hook
 
 mod = "mod4"
 
@@ -49,26 +49,18 @@ keys = [
     Key([mod], "n", lazy.layout.normalize()),
 
     # Switch window focus to other pane(s) of stack
-    Key(
-        ['mod1'], "Tab",
-        lazy.layout.next()
-    ),
+    Key(['mod1'], "Tab", lazy.layout.next()),
 
     # Swap panes of split stack
-    Key(
-        [mod], "Tab",
-        lazy.layout.rotate()
-    ),
+    Key([mod], "Tab", lazy.layout.rotate()),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key(
-        [mod, "shift"], "Return",
-        lazy.layout.toggle_split()
-    ),
-    Key(['control'], "Escape", lazy.spawn('xterm -rv -fs 14 -fa "FreeMono"')),
+    Key( [mod, "shift"], "Return", lazy.layout.toggle_split()),
+
+    Key(['control'], "Escape", lazy.spawn('xterm -rv')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
@@ -132,6 +124,24 @@ screens = [
             30,
                 background=['#000000', '#333333']
         ),
+    ),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(),
+                widget.Prompt(),
+                widget.WindowName(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.BatteryIcon(),
+                widget.Battery(format='{percent:2.0%}'),
+                widget.Systray(),
+                widget.Clock(format='%b %d %a %I:%M %p'),
+            ],
+            30,
+                background=['#000000', '#333333']
+        ),
     )
 ]
 
@@ -163,3 +173,4 @@ focus_on_window_activation = "smart"
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
