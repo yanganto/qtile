@@ -96,8 +96,9 @@ for i in groups:
 layouts = [
     layout.Max(),
     layout.Stack(num_stacks=2),
-    layout.Columns(num_columns=2),
-    layout.Matrix()
+    layout.Columns(num_columns=3),
+    layout.Matrix(),
+    layout.xmonad.MonadTall()
 ]
 
 widget_defaults = dict(
