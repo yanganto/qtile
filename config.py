@@ -123,8 +123,15 @@ screens = [
                 widget.Clock(format='%b %d %a %I:%M %p'),
             ],
             30,
-                background=['#000000', '#333333']
+                background=['#333333', '#000000']
         ),
+        bottom=bar.Bar(
+            [
+                widget.WindowTabs(),
+            ],
+            30,
+                background=['#000000', '#333333']
+        )
     ),
     Screen(
         top=bar.Bar(
@@ -141,8 +148,15 @@ screens = [
                 widget.Clock(format='%b %d %a %I:%M %p'),
             ],
             30,
-                background=['#000000', '#333333']
+                background=['#333333', '#000000']
         ),
+        bottom=bar.Bar(
+            [
+                widget.WindowTabs(),
+            ],
+            30,
+                background=['#000000', '#333333']
+        )
     )
 ]
 
