@@ -60,7 +60,8 @@ keys = [
     # multiple stack panes
     Key( [mod, "shift"], "Return", lazy.layout.toggle_split()),
 
-    Key(['control'], "Escape", lazy.spawn('xterm -rv')),
+    #Key(['control'], "Escape", lazy.spawn('xterm -rv')),
+    Key(['control'], "Escape", lazy.spawn('konsole')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
