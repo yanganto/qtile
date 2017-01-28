@@ -60,8 +60,11 @@ keys = [
     # multiple stack panes
     Key( [mod, "shift"], "Return", lazy.layout.toggle_split()),
 
+    # Utils
     #Key(['control'], "Escape", lazy.spawn('xterm -rv')),
-    Key(['control'], "Escape", lazy.spawn('konsole')),
+    Key([mod], "Escape", lazy.spawn('terminology')),
+    Key(['control'], "Escape", lazy.spawn('yakuake')),
+    Key([mod], "l", lazy.spawn('nemo --no-desktop')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
@@ -81,7 +84,7 @@ keys = [
     Key([mod], 'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
 
-groups = [Group(i) for i in '1234']
+groups = [Group(i) for i in '12345']
 
 for i in groups:
     # mod1 + letter of group = switch to group
