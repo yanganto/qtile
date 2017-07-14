@@ -26,7 +26,7 @@
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
+from libqtile import layout, bar, widget
 
 mod = "mod4"
 
@@ -64,7 +64,7 @@ keys = [
     #Key(['control'], "Escape", lazy.spawn('xterm -rv')),
     Key([mod], "Escape", lazy.spawn('terminology')),
     Key(['control'], "Escape", lazy.spawn('yakuake')),
-    Key([mod], "l", lazy.spawn('nemo --no-desktop')),
+    Key([mod], "l", lazy.spawn('dolphin')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
