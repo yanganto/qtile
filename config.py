@@ -87,12 +87,11 @@ keys = [
 groups = [Group(i) for i in '12345']
 
 for i in groups:
-    # mod1 + letter of group = switch to group
+    # ctrl + Fn of group = switch to group
     keys.append(
         Key(['control'], 'F' + i.name, lazy.group[i.name].toscreen())
     )
-
-    # mod1 + shift + letter of group = switch to & move focused window to group
+    # mod4 + Fn of group = switch to & move focused window to group
     keys.append(
         Key([mod], 'F' + i.name, lazy.window.togroup(i.name))
     )
