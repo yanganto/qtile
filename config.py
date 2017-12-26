@@ -99,10 +99,9 @@ for i in groups:
 
 layouts = [
     layout.Max(),
-    layout.Stack(num_stacks=2),
-    layout.Columns(num_columns=3),
     layout.Matrix(),
-    layout.xmonad.MonadTall()
+    layout.xmonad.MonadTall(),
+    layout.floating.Floating()
 ]
 
 widget_defaults = dict(
@@ -124,7 +123,7 @@ screens = [
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
-                widget.Clock(format='%b %d %a %I:%M %p'),
+                widget.Clock(format='%b %d %a %I:%M:%S %p'),
             ],
             30,
                 background=['#333333', '#000000']
