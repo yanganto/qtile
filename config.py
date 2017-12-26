@@ -26,7 +26,7 @@
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
+from libqtile import layout, bar, widget
 
 mod = "mod4"
 
@@ -64,7 +64,7 @@ keys = [
     #Key(['control'], "Escape", lazy.spawn('xterm -rv')),
     Key([mod], "Escape", lazy.spawn('terminology')),
     Key(['control'], "Escape", lazy.spawn('yakuake')),
-    Key([mod], "l", lazy.spawn('nemo --no-desktop')),
+    Key([mod], "l", lazy.spawn('dolphin')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
@@ -87,12 +87,11 @@ keys = [
 groups = [Group(i) for i in '12345']
 
 for i in groups:
-    # mod1 + letter of group = switch to group
+    # ctrl + Fn of group = switch to group
     keys.append(
         Key(['control'], 'F' + i.name, lazy.group[i.name].toscreen())
     )
-
-    # mod1 + shift + letter of group = switch to & move focused window to group
+    # mod4 + Fn of group = switch to & move focused window to group
     keys.append(
         Key([mod], 'F' + i.name, lazy.window.togroup(i.name))
     )
