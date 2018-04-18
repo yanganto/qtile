@@ -5,6 +5,7 @@
 # Copyright (c) 2012 Craig Barnes
 # Copyright (c) 2013 horsik
 # Copyright (c) 2013 Tao Sauvage
+# Copyright (c) 2017 Antonio Yang
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +28,11 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
+import sys, os  
+
+sys.path.insert(0, '/home/yanganto/TestCode/Python/qtile-widget') 
+import twstock_watcher
+import myconfig 
 
 mod = "mod4"
 
@@ -116,20 +122,21 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
+                twstock_watcher.StockWatcher(watch_list=myconfig.watch_list),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
-                widget.Clock(format='%b %d %a %I:%M:%S %p'),
+                widget.Clock(format='%b %d %a %I:%M:%S %p')
             ],
             30,
                 background=['#333333', '#000000']
         ),
         bottom=bar.Bar(
             [
-                widget.WindowTabs(),
+                widget.WindowTabs()
             ],
             30,
                 background=['#000000', '#333333']
@@ -147,7 +154,7 @@ screens = [
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
-                widget.Clock(format='%b %d %a %I:%M %p'),
+                widget.Clock(format='%b %d %a %I:%M %p')
             ],
             30,
                 background=['#333333', '#000000']
