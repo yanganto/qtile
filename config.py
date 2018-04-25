@@ -70,7 +70,6 @@ keys = [
     #Key(['control'], "Escape", lazy.spawn('xterm -rv')),
     Key([mod], "Escape", lazy.spawn('terminology')),
     Key(['control'], "Escape", lazy.spawn('yakuake')),
-    Key([mod], "l", lazy.spawn('dolphin')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
@@ -106,7 +105,7 @@ layouts = [
     layout.Max(),
     layout.Matrix(),
     layout.xmonad.MonadTall(),
-    layout.floating.Floating()
+    layout.verticaltile.VerticalTile()
 ]
 
 widget_defaults = dict(
@@ -122,10 +121,10 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                twstock_watcher.StockWatcher(watch_list=myconfig.watch_list),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='56303F', fill_color='#56303F.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
@@ -136,7 +135,8 @@ screens = [
         ),
         bottom=bar.Bar(
             [
-                widget.WindowTabs()
+                widget.WindowTabs(),
+                twstock_watcher.StockWatcher(watch_list=myconfig.watch_list)
             ],
             30,
                 background=['#000000', '#333333']
@@ -151,6 +151,7 @@ screens = [
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='56303F', fill_color='#56303F.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
