@@ -33,6 +33,7 @@ import sys, os
 sys.path.insert(0, '/home/yanganto/TestCode/Python/qtile-widget') 
 import twstock_watcher
 import myconfig 
+# import monitor
 
 mod = "mod4"
 
@@ -121,10 +122,11 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
+                # monitor.Monitor(),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                widget.HDDBusyGraph(graph_color='56303F', fill_color='#56303F.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
@@ -151,7 +153,7 @@ screens = [
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                widget.HDDBusyGraph(graph_color='56303F', fill_color='#56303F.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
