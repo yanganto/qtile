@@ -1,0 +1,3 @@
+[submodule "qtile-widget"]
+	path = qtile-widget
+	url = git@github.com:yanganto/qtile-widget.git

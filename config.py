@@ -28,12 +28,11 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
-import sys, os  
 
-sys.path.insert(0, '/home/yanganto/TestCode/Python/qtile-widget') 
-import twstock_watcher
-import myconfig 
-# import monitor
+from myconfig import watch_list, wish_list
+
+twstock_watcher = __import__("qtile-widget")
+
 
 mod = "mod4"
 
@@ -65,10 +64,10 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key( [mod, "shift"], "Return", lazy.layout.toggle_split()),
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Utils
-    #Key(['control'], "Escape", lazy.spawn('xterm -rv')),
+    # Key(['control'], "Escape", lazy.spawn('xterm -rv')),
     Key([mod], "Escape", lazy.spawn('terminology')),
     Key(['control'], "Escape", lazy.spawn('yakuake')),
 
@@ -138,7 +137,8 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
-                twstock_watcher.StockWatcher(watch_list=myconfig.watch_list)
+                twstock_watcher.StockWatcher(watch_list=watch_list),
+                twstock_watcher.StockWatcher(watch_list=wish_list)
             ],
             30,
                 background=['#000000', '#333333']
