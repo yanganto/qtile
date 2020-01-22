@@ -28,9 +28,21 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
+import subprocess
+import re
 
-from myconfig import watch_list, wish_list
 
+IS_POK3R = None
+
+# Detect keyboard type
+device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
+for device in subprocess.check_output("lsusb").decode().split("\n"):
+
+    # Detect Pok3r
+    if (match := device_re.match(device)) and match['vender'] == '04d9' and match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard':
+        IS_POK3R = True
+
+# from myconfig import watch_list, wish_list
 twstock_watcher = __import__("qtile-widget")
 
 
@@ -92,13 +104,17 @@ keys = [
 groups = [Group(i) for i in '12345']
 
 for i in groups:
-    # ctrl + Fn of group = switch to group
+    # ctrl of group = switch to group
     keys.append(
-        Key(['control'], 'F' + i.name, lazy.group[i.name].toscreen())
+        Key(['control'],
+            i.name if IS_POK3R else 'F' + i.name,
+            lazy.group[i.name].toscreen())
     )
-    # mod4 + Fn of group = switch to & move focused window to group
+    # mod4  of group = switch to & move focused window to group
     keys.append(
-        Key([mod], 'F' + i.name, lazy.window.togroup(i.name))
+        Key([mod],
+            i.name if IS_POK3R else 'F' + i.name,
+            lazy.window.togroup(i.name))
     )
 
 layouts = [
@@ -137,8 +153,8 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
-                twstock_watcher.StockWatcher(watch_list=watch_list),
-                twstock_watcher.StockWatcher(watch_list=wish_list)
+                # twstock_watcher.StockWatcher(watch_list=watch_list),
+                # twstock_watcher.StockWatcher(watch_list=wish_list)
             ],
             30,
                 background=['#000000', '#333333']
