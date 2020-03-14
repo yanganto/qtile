@@ -32,6 +32,10 @@ import subprocess
 import re
 
 
+from myconfig import stock_api_key
+from cpu import CPU
+from memory import Memory
+
 IS_POK3R = None
 
 # Detect keyboard type
@@ -41,9 +45,6 @@ for device in subprocess.check_output("lsusb").decode().split("\n"):
     # Detect Pok3r
     if (match := device_re.match(device)) and match['vender'] == '04d9' and match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard':
         IS_POK3R = True
-
-# from myconfig import watch_list, wish_list
-twstock_watcher = __import__("qtile-widget")
 
 
 mod = "mod4"
@@ -137,8 +138,9 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                # monitor.Monitor(),
+                CPU(),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
@@ -148,16 +150,14 @@ screens = [
                 widget.Clock(format='%b %d %a %I:%M:%S %p')
             ],
             30,
-                background=['#333333', '#000000']
+            background=['#333333', '#000000']
         ),
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
-                # twstock_watcher.StockWatcher(watch_list=watch_list),
-                # twstock_watcher.StockWatcher(watch_list=wish_list)
             ],
             30,
-                background=['#000000', '#333333']
+            background=['#000000', '#333333']
         )
     ),
     Screen(
@@ -166,7 +166,9 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
+                CPU(),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
@@ -176,24 +178,22 @@ screens = [
                 widget.Clock(format='%b %d %a %I:%M %p')
             ],
             30,
-                background=['#333333', '#000000']
+            background=['#333333', '#000000']
         ),
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
             ],
             30,
-                background=['#000000', '#333333']
+            background=['#000000', '#333333']
         )
     )
 ]
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-        start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-        start=lazy.window.get_size()),
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
