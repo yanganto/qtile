@@ -32,7 +32,6 @@ import subprocess
 import re
 
 
-from myconfig import stock_api_key
 from cpu import CPU
 from memory import Memory
 
@@ -80,7 +79,7 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Utils
-    # Key(['control'], "Escape", lazy.spawn('xterm -rv')),
+    Key(['control', mod], "Escape", lazy.spawn('terminology -e ssh www.ant-lab.tw')),
     Key([mod], "Escape", lazy.spawn('terminology')),
     Key(['control'], "Escape", lazy.spawn('yakuake')),
 
