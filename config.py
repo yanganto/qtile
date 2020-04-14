@@ -81,7 +81,7 @@ keys = [
     # Utils
     Key(['control', mod], "Escape", lazy.spawn('terminology -e ssh www.ant-lab.tw')),
     Key([mod], "Escape", lazy.spawn('terminology')),
-    Key(['control'], "Escape", lazy.spawn('yakuake')),
+    Key(['control'], "Escape", lazy.spawn('guake')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
@@ -120,12 +120,12 @@ for i in groups:
 layouts = [
     layout.Max(),
     layout.Matrix(),
+    layout.Matrix(columns=4, name="matrix4"),
     layout.xmonad.MonadTall(),
-    layout.verticaltile.VerticalTile()
 ]
 
 widget_defaults = dict(
-    font='Arial',
+    font='Iosevka',
     fontsize=16,
     padding=3,
 )
@@ -154,10 +154,11 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
+                widget.CurrentLayout()
             ],
             30,
             background=['#000000', '#333333']
-        )
+            )
     ),
     Screen(
         top=bar.Bar(
