@@ -120,7 +120,6 @@ for i in groups:
 layouts = [
     layout.Max(),
     layout.Matrix(),
-    layout.Matrix(columns=4, name="matrix4"),
     layout.xmonad.MonadTall(),
 ]
 
@@ -183,6 +182,7 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
+                widget.CurrentLayout()
             ],
             30,
             background=['#000000', '#333333']
