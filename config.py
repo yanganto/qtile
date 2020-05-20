@@ -153,11 +153,12 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
+                widget.Notify(default_timeout=10, background="#8B0000"),
                 widget.CurrentLayout()
             ],
             30,
             background=['#000000', '#333333']
-            )
+        )
     ),
     Screen(
         top=bar.Bar(
@@ -182,6 +183,37 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.WindowTabs(),
+                widget.Notify(default_timeout=10, background="#8B0000"),
+                widget.CurrentLayout()
+            ],
+            30,
+            background=['#000000', '#333333']
+        )
+    ),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(),
+                widget.Prompt(),
+                widget.WindowName(),
+                CPU(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                widget.BatteryIcon(),
+                widget.Battery(format='{percent:2.0%}'),
+                widget.Systray(),
+                widget.Clock(format='%b %d %a %I:%M %p')
+            ],
+            30,
+            background=['#333333', '#000000']
+        ),
+        bottom=bar.Bar(
+            [
+                widget.WindowTabs(),
+                widget.Notify(default_timeout=10, background="#8B0000"),
                 widget.CurrentLayout()
             ],
             30,
