@@ -36,6 +36,7 @@ from cpu import CPU
 from memory import Memory
 
 IS_POK3R = None
+AT_HOME = False
 
 # Detect keyboard type
 device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
@@ -44,6 +45,9 @@ for device in subprocess.check_output("lsusb").decode().split("\n"):
     # Detect Pok3r
     if (match := device_re.match(device)) and match['vender'] == '04d9' and match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard':
         IS_POK3R = True
+    if (match := device_re.match(device)) and match['vender'] == '05e3' and match['tag'] == 'Genesys Logic, Inc. Hub':
+        IS_POK3R = True
+        AT_HOME = True
 
 
 mod = "mod4"
@@ -79,9 +83,10 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Utils
-    Key(['control', mod], "Escape", lazy.spawn('terminology -e ssh www.ant-lab.tw')),
-    Key([mod], "Escape", lazy.spawn('terminology')),
-    Key(['control'], "Escape", lazy.spawn('guake')),
+    Key(['control', mod], "Escape", lazy.spawn('alacritty -e ssh www.ant-lab.tw')),
+    Key([mod], "Escape", lazy.spawn('alacritty')),
+    Key([mod], "l", lazy.spawn('pcmanfm')),
+    Key([mod], "f", lazy.spawn('firefox')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
@@ -100,6 +105,10 @@ keys = [
     Key([], 'XF86AudioMute', lazy.spawn("pamixer -m")),
     Key([mod], 'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
+
+if AT_HOME:
+    for i in '1234':
+        keys.append(Key(['control', 'mod1'], i, lazy.spawn('move H' + i)))
 
 groups = [Group(i) for i in '12345']
 
@@ -219,6 +228,36 @@ screens = [
             30,
             background=['#000000', '#333333']
         )
+    ),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(),
+                widget.Prompt(),
+                widget.WindowName(),
+                CPU(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                widget.BatteryIcon(),
+                widget.Battery(format='{percent:2.0%}'),
+                widget.Systray(),
+                widget.Clock(format='%b %d %a %I:%M %p')
+            ],
+            30,
+            background=['#333333', '#000000']
+        ),
+        bottom=bar.Bar(
+            [
+                widget.WindowTabs(),
+                widget.Notify(default_timeout=10, background="#8B0000"),
+                widget.CurrentLayout()
+            ],
+            30,
+            background=['#000000', '#333333']
+        )
     )
 ]
 
@@ -248,4 +287,3 @@ focus_on_window_activation = "smart"
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
-
