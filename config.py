@@ -40,17 +40,20 @@ AT_HOME = False
 
 # Detect keyboard type
 device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
-for device in subprocess.check_output("lsusb").decode().split("\n"):
-    # Detect Pok3r
-    if device_re.match(device):
-        match = device_re.match(device)
-        if match['vender'] == '04d9' and match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard':
-            IS_POK3R = True
-    if device_re.match(device):
-        match = device_re.match(device)
-        if match['vender'] == '05e3' and match['tag'] == 'Genesys Logic, Inc. Hub':
-            IS_POK3R = True
-            AT_HOME = True
+
+# TODO fix me with nix OS
+# for device in subprocess.check_output("lsusb").decode().split("\n"):
+#     # Detect Pok3r
+#     if device_re.match(device):
+#         match = device_re.match(device)
+#         if match['vender'] == '04d9' and match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard':
+#             IS_POK3R = True
+#     if device_re.match(device):
+#         match = device_re.match(device)
+#         if match['vender'] == '05e3' and match['tag'] == 'Genesys Logic, Inc. Hub':
+#             IS_POK3R = True
+#             AT_HOME = True
+IS_POK3R = True
 
 
 mod = "mod4"
@@ -152,8 +155,8 @@ screens = [
                 #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 #Memory(),
                 #widget.MemoryGraph(line_width=1),
-                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
@@ -182,8 +185,8 @@ screens = [
                 #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 #Memory(),
                 #widget.MemoryGraph(line_width=1),
-                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
@@ -212,8 +215,8 @@ screens = [
                 #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 #Memory(),
                 #widget.MemoryGraph(line_width=1),
-                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
@@ -242,8 +245,8 @@ screens = [
                 #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
                 #Memory(),
                 #widget.MemoryGraph(line_width=1),
-                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
