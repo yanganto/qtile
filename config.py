@@ -104,6 +104,8 @@ keys = [
     Key(["control"], "space", lazy.spawncmd()),
 
     # Function keys
+    # Hand on backlight for OLED screens
+    # xrandr --output <output> --brightness .5 - dim to 50%
     Key([], 'XF86MonBrightnessUp', lazy.spawn("xbacklight -inc 5")),
     Key([], 'XF86MonBrightnessDown', lazy.spawn("xbacklight -dec 5")),
     Key([], 'XF86AudioRaiseVolume', lazy.spawn("pamixer -i 5")),
