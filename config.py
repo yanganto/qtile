@@ -25,6 +25,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
+import sys
+
+# TODO:
+# There are some issue for NixOS with libqtile
+# NixOS got this
+# $QTILE_WRAPPER = /nix/store/vswx4wkrl692grqbwygdb193v5al6fb9-qtile-0.16.0/bin/qtile
+# Workarround here
+# if os.environ.get('QTILE_WRAPPER'):
+# sys.path.insert(1, '/nix/store/vswx4wkrl692grqbwygdb193v5al6fb9-qtile-0.16.0/lib/python3.7/site-packages')
+# sys.path.insert(1, os.environ.get('QTILE_SAVED_PATH'))
+
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
@@ -32,28 +44,27 @@ import subprocess
 import re
 
 
-#from cpu import CPU
+# from cpu import CPU
 #from memory import Memory
 
 IS_POK3R = None
-AT_HOME = False
+AT_HOME = int(subprocess.check_output(["xrandr", "--listmonitors"]).decode().split("\n")[0].split(":")[1]) == 4
 
 # Detect keyboard type
 device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
 
-# TODO fix me with nix OS
-# for device in subprocess.check_output("lsusb").decode().split("\n"):
-#     # Detect Pok3r
-#     if device_re.match(device):
-#         match = device_re.match(device)
-#         if match['vender'] == '04d9' and match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard':
-#             IS_POK3R = True
-#     if device_re.match(device):
-#         match = device_re.match(device)
-#         if match['vender'] == '05e3' and match['tag'] == 'Genesys Logic, Inc. Hub':
-#             IS_POK3R = True
-#             AT_HOME = True
-IS_POK3R = True
+for device in subprocess.check_output("lsusb").decode().split("\n"):
+    # Detect Pok3r
+    if device_re.match(device):
+        match = device_re.match(device)
+        if match['vender'] == '04d9' and (
+                match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard'
+                or match['tag'] == 'Holtek Semiconductor, Inc. USB Keyboard'):
+            IS_POK3R = True
+    if device_re.match(device):
+        match = device_re.match(device)
+        if match['vender'] == '05e3' and match['tag'] == 'Genesys Logic, Inc. Hub':
+            IS_POK3R = True
 
 
 mod = "mod4"
@@ -96,7 +107,6 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
-    Key(['mod1'], "q", lazy.window.kill()),
     Key(['control'], "q", lazy.window.kill()),
 
     Key([mod, "control"], "r", lazy.restart()),
@@ -114,9 +124,13 @@ keys = [
     Key([mod], 'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
 
+
 if AT_HOME:
     for i in '1234':
-        keys.append(Key(['control', 'mod1'], i, lazy.spawn('move H' + i)))
+        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/bin/move H' + i)))
+else:
+    for i in '12':
+        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/bin/move O' + i)))
 
 groups = [Group(i) for i in '12345']
 
@@ -138,6 +152,7 @@ layouts = [
     layout.Max(),
     layout.Matrix(),
     layout.xmonad.MonadTall(),
+    layout.xmonad.MonadWide(),
 ]
 
 widget_defaults = dict(
