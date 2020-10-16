@@ -48,7 +48,7 @@ import re
 #from memory import Memory
 
 IS_POK3R = None
-AT_HOME = int(subprocess.check_output(["xrandr", "--listmonitors"]).decode().split("\n")[0].split(":")[1]) == 4
+AT_HOME = int(subprocess.check_output(["xrandr", "--listmonitors"]).decode().split("\n")[0].split(":")[1]) >= 3
 
 # Detect keyboard type
 device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
