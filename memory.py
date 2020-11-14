@@ -42,7 +42,7 @@ class Memory(base.ThreadedPollText):
 
     orientations = base.ORIENTATION_HORIZONTAL
     defaults = [
-        ("format", "{MemUsed}/{MemTotal}M", "Formatting for field names."),
+        ("format", "{MemUsed}M {MemPercentage}%", "Formatting for field names."),
         ("update_interval", 1.0, "Update interval for the Memory"),
     ]
 
@@ -60,6 +60,7 @@ class Memory(base.ThreadedPollText):
         val = {}
         val["MemUsed"] = mem.used // 1024 // 1024
         val["MemTotal"] = mem.total // 1024 // 1024
+        val["MemPercentage"] = round(mem.used / mem.total, 1)
         val["MemFree"] = mem.free // 1024 // 1024
         val["Buffers"] = mem.buffers // 1024 // 1024
         val["Active"] = mem.active // 1024 // 1024

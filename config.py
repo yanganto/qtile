@@ -25,19 +25,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO:
-# There are some issue for NixOS with libqtile
-# NixOS got this
-# $QTILE_WRAPPER = /nix/store/hash-qtile-0.16.0/bin/qtile
-# Workarround here
-# if os.environ.get('QTILE_WRAPPER'):
-# sys.path.insert(1,
-# '/nix/store/hash-qtile-0.16.0/lib/python3.7/site-packages')
-# sys.path.insert(1, os.environ.get('QTILE_SAVED_PATH'))
-# import os
-# import sys
-# from cpu import CPU
-# from memory import Memory
+from cpu import CPU
+from memory import Memory
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
@@ -46,7 +35,10 @@ import subprocess
 import re
 
 IS_POK3R = None
-AT_HOME = int(subprocess.check_output(["xrandr", "--listmonitors"]).decode() .split("\n")[0].split(":")[1]) >= 3
+try:
+    AT_HOME = open("/tmp/screens").readlines()[0].startswith('home')
+except:
+    AT_HOME = False
 
 # Detect keyboard type
 device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
@@ -128,10 +120,10 @@ keys = [
 
 if AT_HOME:
     for i in '1234':
-        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/bin/move H' + i)))
+        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/.usr/bin/move H' + i)))
 else:
     for i in '12':
-        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/bin/move O' + i)))
+        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/.usr/bin/move O' + i)))
 
 groups = [Group(i) for i in '12345']
 
@@ -169,12 +161,12 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                #CPU(),
-                #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                #Memory(),
-                #widget.MemoryGraph(line_width=1),
-                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                CPU(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
@@ -199,12 +191,12 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                #CPU(),
-                #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                #Memory(),
-                #widget.MemoryGraph(line_width=1),
-                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                CPU(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
@@ -229,12 +221,12 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                #CPU(),
-                #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                #Memory(),
-                #widget.MemoryGraph(line_width=1),
-                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                CPU(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 widget.Systray(),
