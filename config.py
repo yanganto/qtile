@@ -25,17 +25,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import os
-import sys
-
 # TODO:
 # There are some issue for NixOS with libqtile
 # NixOS got this
-# $QTILE_WRAPPER = /nix/store/vswx4wkrl692grqbwygdb193v5al6fb9-qtile-0.16.0/bin/qtile
+# $QTILE_WRAPPER = /nix/store/hash-qtile-0.16.0/bin/qtile
 # Workarround here
 # if os.environ.get('QTILE_WRAPPER'):
-# sys.path.insert(1, '/nix/store/vswx4wkrl692grqbwygdb193v5al6fb9-qtile-0.16.0/lib/python3.7/site-packages')
+# sys.path.insert(1,
+# '/nix/store/hash-qtile-0.16.0/lib/python3.7/site-packages')
 # sys.path.insert(1, os.environ.get('QTILE_SAVED_PATH'))
+# import os
+# import sys
+# from cpu import CPU
+# from memory import Memory
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
@@ -43,12 +45,8 @@ from libqtile import layout, bar, widget
 import subprocess
 import re
 
-
-# from cpu import CPU
-#from memory import Memory
-
 IS_POK3R = None
-AT_HOME = int(subprocess.check_output(["xrandr", "--listmonitors"]).decode().split("\n")[0].split(":")[1]) >= 3
+AT_HOME = int(subprocess.check_output(["xrandr", "--listmonitors"]).decode() .split("\n")[0].split(":")[1]) >= 3
 
 # Detect keyboard type
 device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
@@ -100,7 +98,6 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
 
     # Utils
-    Key(['control', mod], "Escape", lazy.spawn('alacritty -e ssh www.ant-lab.tw')),
     Key([mod], "Escape", lazy.spawn('alacritty')),
     Key([mod], "l", lazy.spawn('pcmanfm')),
     Key([mod], "f", lazy.spawn('firefox')),
@@ -112,6 +109,10 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key(["control"], "space", lazy.spawncmd()),
+
+    Key([mod], "c", lazy.spawn("clipcat-menu")),
+    Key([mod], "s", lazy.spawn("rofi -terminal alacritty -show ssh")),
+    Key([mod], "w", lazy.spawn("rofi -show")),
 
     # Function keys
     # Hand on backlight for OLED screens
@@ -300,6 +301,7 @@ cursor_warp = False
 floating_layout = layout.Floating()
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+subprocess.run(["clipcatd"])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
