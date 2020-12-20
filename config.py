@@ -25,8 +25,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from cpu import CPU
-from memory import Memory
+from mylibqtile.widget.cpu import CPU
+from mylibqtile.widget.memory import Memory
+from mylibqtile.widget.lock_hint import LockHint
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
@@ -169,6 +170,7 @@ screens = [
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
+                LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M:%S %p')
             ],
@@ -199,6 +201,7 @@ screens = [
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
+                LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M %p')
             ],
@@ -229,6 +232,7 @@ screens = [
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
+                LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M %p')
             ],
@@ -259,6 +263,7 @@ screens = [
                 # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
+                LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M %p')
             ],
