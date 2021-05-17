@@ -35,29 +35,6 @@ from libqtile import layout, bar, widget
 import subprocess
 import re
 
-IS_POK3R = None
-try:
-    AT_HOME = open("/tmp/screens").readlines()[0].startswith('home')
-except:
-    AT_HOME = False
-
-# Detect keyboard type
-device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<vender>\w+):(?P<id>\w+)\s(?P<tag>.+)$")
-
-for device in subprocess.check_output("lsusb").decode().split("\n"):
-    # Detect Pok3r
-    if device_re.match(device):
-        match = device_re.match(device)
-        if match['vender'] == '04d9' and (
-                match['tag'] == 'Holtek Semiconductor, Inc. USB-HID Keyboard'
-                or match['tag'] == 'Holtek Semiconductor, Inc. USB Keyboard'):
-            IS_POK3R = True
-    if device_re.match(device):
-        match = device_re.match(device)
-        if match['vender'] == '05e3' and match['tag'] == 'Genesys Logic, Inc. Hub':
-            IS_POK3R = True
-
-
 mod = "mod4"
 
 keys = [
@@ -118,13 +95,8 @@ keys = [
     Key([mod], 'XF86AudioMute', lazy.spawn("pamixer -u")),
 ]
 
-
-if AT_HOME:
-    for i in '1234':
-        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/.usr/bin/move H' + i)))
-else:
-    for i in '12':
-        keys.append(Key(['control', 'mod1'], i, lazy.spawn('/home/yanganto/.usr/bin/move O' + i)))
+for i in '1234':
+    keys.append(Key(['control', 'shift'], i, lazy.spawn('/home/yanganto/.usr/bin/move ' + i)))
 
 groups = [Group(i) for i in '12345']
 
@@ -132,13 +104,13 @@ for i in groups:
     # ctrl of group = switch to group
     keys.append(
         Key(['control'],
-            i.name if IS_POK3R else 'F' + i.name,
+            i.name,
             lazy.group[i.name].toscreen())
     )
     # mod4  of group = switch to & move focused window to group
     keys.append(
         Key([mod],
-            i.name if IS_POK3R else 'F' + i.name,
+            i.name,
             lazy.window.togroup(i.name))
     )
 
@@ -255,12 +227,12 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                #CPU(),
-                #widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                #Memory(),
-                #widget.MemoryGraph(line_width=1),
-                # widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
-                # widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
+                CPU(),
+                widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
+                Memory(),
+                widget.MemoryGraph(line_width=1),
+                widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
+                widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
                 LockHint(),
