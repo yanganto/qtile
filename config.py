@@ -25,13 +25,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from mylibqtile.widget.cpu import CPU
-from mylibqtile.widget.memory import Memory
-from mylibqtile.widget.lock_hint import LockHint
+# from mylibqtile.widget.cpu import CPU
+# from mylibqtile.widget.memory import Memory
+# from mylibqtile.widget.lock_hint import LockHint
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget
+from libqtile import layout, bar, widget, hook
 import subprocess
 import re
 
@@ -69,8 +69,10 @@ keys = [
 
     # Utils
     Key([mod], "Escape", lazy.spawn('alacritty')),
+    # Key([mod], "Escape", lazy.spawn('terminology')),
     Key([mod], "l", lazy.spawn('pcmanfm')),
     Key([mod], "f", lazy.spawn('firefox')),
+    Key([mod], "g", lazy.spawn('chromium')),
 
     # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout()),
@@ -83,6 +85,7 @@ keys = [
     Key([mod], "c", lazy.spawn("clipcat-menu")),
     Key([mod], "s", lazy.spawn("rofi -terminal alacritty -show ssh")),
     Key([mod], "w", lazy.spawn("rofi -show")),
+    Key([mod], "r", lazy.spawn("rofi -show run")),
 
     # Function keys
     # Hand on backlight for OLED screens
@@ -134,15 +137,15 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                CPU(),
+                # CPU(),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                Memory(),
+                # Memory(),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
-                LockHint(),
+                # LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M:%S %p')
             ],
@@ -165,15 +168,15 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                CPU(),
+                # CPU(),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                Memory(),
+                # Memory(),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
-                LockHint(),
+                # LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M %p')
             ],
@@ -196,15 +199,15 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                CPU(),
+                # CPU(),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                Memory(),
+                # Memory(),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
-                LockHint(),
+                # LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M %p')
             ],
@@ -227,15 +230,15 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                CPU(),
+                # CPU(),
                 widget.CPUGraph(graph_color='FF3300', fill_color='#FF5500.3', line_width=1),
-                Memory(),
+                # Memory(),
                 widget.MemoryGraph(line_width=1),
                 widget.NetGraph(graph_color='8CFF8C', fill_color='#8CFFC6.3', line_width=1),
                 widget.HDDBusyGraph(graph_color='FF00FF', fill_color='#FF00FF.3', line_width=1),
                 widget.BatteryIcon(),
                 widget.Battery(format='{percent:2.0%}'),
-                LockHint(),
+                # LockHint(),
                 widget.Systray(),
                 widget.Clock(format='%b %d %a %I:%M %p')
             ],
@@ -270,7 +273,7 @@ cursor_warp = False
 floating_layout = layout.Floating()
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-subprocess.run(["clipcatd"])
+# subprocess.run(["ibus-daemon"])
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
