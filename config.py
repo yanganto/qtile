@@ -90,8 +90,8 @@ keys = [
     # Function keys
     # Hand on backlight for OLED screens
     # xrandr --output <output> --brightness .5 - dim to 50%
-    Key([], 'XF86MonBrightnessUp', lazy.spawn("xbacklight -inc 5")),
-    Key([], 'XF86MonBrightnessDown', lazy.spawn("xbacklight -dec 5")),
+    Key([], 'XF86MonBrightnessUp', lazy.spawn("/run/wrappers/bin/light -A 5")),
+    Key([], 'XF86MonBrightnessDown', lazy.spawn("/run/wrappers/bin/light -U 5")),
     Key([], 'XF86AudioRaiseVolume', lazy.spawn("pamixer -i 5")),
     Key([], 'XF86AudioLowerVolume', lazy.spawn("pamixer -d 5")),
     Key([], 'XF86AudioMute', lazy.spawn("pamixer -m")),
